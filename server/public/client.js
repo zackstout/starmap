@@ -4,6 +4,7 @@ var w = 1000;
 var h = 600;
 // very odd we have to initialize this locally, but w and h are ok as globals...:
 var size;
+var stars = [];
 
 function setup() {
   size = 35;
@@ -34,7 +35,6 @@ function setup() {
       // and only 5 less than 0!
       if (parseFloat(output.mag) < 4.6 && output.name != 'Sol') {
 
-        // stars.push(output);
         // console.log(output.ra, output.dec);
         var xCoord = output.ra * w/24;
         var yCoord = h/2 - output.dec * h/180;
@@ -42,7 +42,10 @@ function setup() {
         output.xCoord = w - xCoord;
         output.yCoord = yCoord;
         output.radius = size / adjMag;
-        stroke(200);
+
+        stars.push(output);
+
+        noStroke();
         if (output.name) {
           fill(100);
           namedStars.push(output);
@@ -75,9 +78,25 @@ function setup() {
     // console.log(stars);
   });
 
+} // end setup
 
+function draw() {
+  background(200);
+  noStroke();
 
+  stars.forEach(function(star) {
+    if (star.name) {
+      fill(100);
+    } else {
+      fill(255);
+    }
+    ellipse(star.xCoord, star.yCoord, star.radius);
+
+  });
 }
+
+var upperleft;
+var lowerright;
 
 function mouseClicked() {
   // console.log(mouseX, mouseY);
@@ -87,5 +106,26 @@ function mouseClicked() {
     }
   });
 }
+
+function mousePressed() {
+  console.log(mouseX, mouseY);
+  upperleft = {x: mouseX, y: mouseY};
+}
+
+function mouseDragged() {
+  // noFill();
+  stroke(20, 20, 240);
+  strokeWeight(3);
+  rect(upperleft.x, upperleft.y, mouseX - upperleft.x, mouseY - upperleft.y);
+}
+
+function mouseReleased() {
+  console.log(mouseX, mouseY);
+  lowerright = {x: mouseX, y: mouseY};
+}
+
+// function doubleClicked() {
+//   console.log('doublin');
+// }
 
 // Don't forget, you need a local server to use this (because of CORS...?):
