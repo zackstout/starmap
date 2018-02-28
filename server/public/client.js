@@ -6,8 +6,10 @@ var h = 600;
 var size;
 var stars = [];
 
+var ursaMajor = [];
+
 function setup() {
-  size = 35;
+  size = 30;
 
   createCanvas(w, h);
   background(200);
@@ -27,13 +29,14 @@ function setup() {
         mag: star.mag,
         name: star.proper,
         absmag: star.absmag,
-        con: star.con
+        con: star.con,
+        id: star.id
       };
 
       // only 1600 less than 5:
       // only 500 less than 4:
       // and only 5 less than 0!
-      if (parseFloat(output.mag) < 4.6 && output.name != 'Sol') {
+      if (parseFloat(output.mag) < 4.3 && output.name != 'Sol') {
 
         // console.log(output.ra, output.dec);
         var xCoord = output.ra * w/24;
@@ -44,6 +47,10 @@ function setup() {
         output.radius = size / adjMag;
 
         stars.push(output);
+
+        if (output.con == 'UMa') {
+          ursaMajor.push(output);
+        }
 
         noStroke();
         if (output.name) {
@@ -74,25 +81,54 @@ function setup() {
         ellipse(w - xCoord, yCoord, size / adjMag);
         // console.log(output);
       }
+    }); // end FOREACH
+
+    console.log(ursaMajor);
+    ursaMajor.connections = [
+      {start: 'Alkaid', end: 'Mizar'},
+      {start: 'Mizar', end: 'Alioth'},
+      {start: 'Alioth', end: 'Megrez'},
+      {start: 'Megrez', end: 'Phad'},
+      {start: 'Megrez', end: 'Dubhe'},
+      {start: 'Dubhe', end: 'Merak'},
+      {start: 'Phad', end: 'Merak'},
+    ];
+
+    ursaMajor.connections.forEach(function(con) {
+      var start = ursaMajor.filter(function(star) {
+        return star.name == con.start;
+      });
+      var end = ursaMajor.filter(function(star) {
+        return star.name == con.end;
+      });
+      var start1 = start[0];
+      var end1 = end[0];
+      // console.log(start1, end1);
+      stroke(20, 20, 220);
+      line(start1.xCoord, start1.yCoord, end1.xCoord, end1.yCoord);
     });
+
+
     // console.log(stars);
   });
 
-} // end setup
+} // end SETUP
 
+
+// Added this to help deal with click/drag box for zooming, but ....let's not use it for now:
 function draw() {
-  background(200);
-  noStroke();
-
-  stars.forEach(function(star) {
-    if (star.name) {
-      fill(100);
-    } else {
-      fill(255);
-    }
-    ellipse(star.xCoord, star.yCoord, star.radius);
-
-  });
+  // background(200);
+  // noStroke();
+  //
+  // stars.forEach(function(star) {
+  //   if (star.name) {
+  //     fill(100);
+  //   } else {
+  //     fill(255);
+  //   }
+  //   ellipse(star.xCoord, star.yCoord, star.radius);
+  //
+  // });
 }
 
 var upperleft;
@@ -100,8 +136,8 @@ var lowerright;
 
 function mouseClicked() {
   // console.log(mouseX, mouseY);
-  namedStars.forEach(function(star) {
-    if (dist(mouseX, mouseY, star.xCoord, star.yCoord) < star.radius/2) {
+  stars.forEach(function(star) {
+    if (dist(mouseX, mouseY, star.xCoord, star.yCoord) < star.radius/1.5) {
       console.log(star);
     }
   });
@@ -113,7 +149,7 @@ function mousePressed() {
 }
 
 function mouseDragged() {
-  // noFill();
+  // noFi npll();
   stroke(20, 20, 240);
   strokeWeight(3);
   rect(upperleft.x, upperleft.y, mouseX - upperleft.x, mouseY - upperleft.y);
