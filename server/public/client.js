@@ -8,6 +8,14 @@ var stars = [];
 var nums = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 
 var ursaMajor = [];
+var coronaBor = [];
+var cygnus = [];
+var bootes = [];
+var aquila = [];
+var lyra = [];
+var serpent = [];
+var ophiuchus = [];
+
 
 function setup() {
   size = 30;
@@ -52,6 +60,27 @@ function setup() {
         if (output.con == 'UMa') {
           ursaMajor.push(output);
         }
+        if (output.con == 'CrB') {
+          coronaBor.push(output);
+        }
+        if (output.con == 'Boo') {
+          bootes.push(output);
+        }
+        if (output.con == 'Cyg') {
+          cygnus.push(output);
+        }
+        if (output.con == 'Lyr') {
+          lyra.push(output);
+        }
+        if (output.con == 'Aql') {
+          aquila.push(output);
+        }
+        if (output.con == 'Ser') {
+          serpent.push(output);
+        }
+        if (output.con == 'Oph') {
+          ophiuchus.push(output);
+        }
 
         noStroke();
         if (output.name) {
@@ -79,6 +108,10 @@ function setup() {
         } else {
           fill(255);
         }
+
+        if (output.con == 'Oph') {
+          fill(20, 20, 220);
+        }
         ellipse(w - xCoord, yCoord, size / adjMag);
         // console.log(output);
       }
@@ -98,41 +131,104 @@ function setup() {
       {start: '46600', end: '41586'},
       {start: '46600', end: '48182'},
       {start: '41586', end: '48182'},
-
       {start: 'Phad', end: '57226'},
       {start: '57226', end: '55055'},
       {start: '57226', end: '54380'},
       {start: '54380', end: '50655'},
       {start: '50655', end: '50230'},
-
       {start: '48182', end: '46720'},
       {start: '46720', end: '44343'},
       {start: '44343', end: '44000'},
-
-
+    ];
+    coronaBor.connections = [
+      {start: '77923', end: '76716'},
+      {start: '76716', end: 'Alphekka'},
+      {start: 'Alphekka', end: '75466'},
+      {start: '75466', end: '75895'},
+    ];
+    cygnus.connections = [
+      {start: 'Deneb', end: 'Sadr'},
+      {start: 'Sadr', end: '96858'},
+      {start: 'Sadr', end: '97799'},
+      {start: 'Sadr', end: 'Gienah'},
+      {start: '96858', end: '95554'},
+      {start: '97799', end: 'Albireo'},
+      {start: 'Gienah', end: '104394'},
+    ];
+    bootes.connections = [
+      {start: 'Arcturus', end: '70828'},
+      {start: 'Arcturus', end: '71569'},
+      {start: '70828', end: '71879'},
+      {start: '70828', end: '70851'},
+      {start: '71569', end: '71879'},
+      {start: '71879', end: '74438'},
+      {start: '74438', end: '73327'},
+      {start: '73327', end: '70851'},
+      {start: '70851', end: '69510'},
+      {start: '69510', end: '70274'},
+      {start: '69510', end: '67711'},
+      {start: '67711', end: '67246'},
+    ];
+    aquila.connections = [
+      {start: 'Altair', end: 'Tarazed'},
+      {start: 'Altair', end: 'Alshain'},
+      {start: 'Altair', end: '95207'},
+      {start: '95207', end: '93452'},
+      {start: '95207', end: '97493'},
+      {start: '93452', end: '93136'},
+      {start: '93452', end: '92951'},
+      {start: '97493', end: '99156'},
+      {start: '99156', end: '93136'},
+      {start: '93136', end: '93510'},
+      // {start: '69510', end: '67711'},
+      // {start: '67711', end: '67246'},
+    ];
+    lyra.connections = [
+      {start: 'Vega', end: 'Sheliak'},
+      {start: 'Vega', end: '92502'},
+      {start: 'Sheliak', end: '92902'},
+      {start: '92902', end: '92502'},
+    ];
+    ophiuchus.connections = [
+      {start: 'Rasalhague', end: '82745'},
+      {start: 'Rasalhague', end: 'Cebalrai'},
+      {start: 'Cebalrai', end: '87775'},
+      {start: 'Cebalrai', end: '83755'},
+      {start: '82745', end: '80637'},
+      {start: '82745', end: '81130'},
+      {start: '80637', end: '79640'},
+      {start: '79640', end: '79352'},
+      {start: '81130', end: '80648'},
+      {start: '80648', end: '80327'},
+      {start: '81130', end: '83755'},
+      {start: '83755', end: '84711'},
+      {start: '84711', end: '85164'},
+    ];
+    serpent.connections = [
+      {start: '89684', end: '86298'},
+      {start: '86298', end: '85998'},
+      {start: '85998', end: '77280'},
+      {start: '77280', end: '77386'},
+      {start: '77386', end: 'Unukalhai'},
+      {start: 'Unukalhai', end: '76044'},
+      {start: '76044', end: '76997'},
+      {start: '76997', end: '77836'},
+      {start: '76997', end: '77214'},
+      {start: '77836', end: '77214'},
     ];
 
-    ursaMajor.connections.forEach(function(con) {
-      var start = ursaMajor.filter(function(star) {
-        if (!nums.includes(con.start[1])) {
-          return star.name == con.start;
-        } else {
-          return star.id == con.start;
-        }
-      });
-      var end = ursaMajor.filter(function(star) {
-        if (!nums.includes(con.end[1])) {
-          return star.name == con.end;
-        } else {
-          return star.id == con.end;
-        }
-      });
-      var start1 = start[0];
-      var end1 = end[0];
-      // console.log(start1, end1);
-      stroke(20, 20, 220);
-      line(start1.xCoord, start1.yCoord, end1.xCoord, end1.yCoord);
-    });
+    drawLines(ursaMajor);
+    drawLines(coronaBor);
+    drawLines(cygnus);
+    drawLines(bootes);
+    drawLines(lyra);
+    drawLines(aquila);
+    drawLines(serpent);
+    drawLines(ophiuchus);
+
+
+
+
 
 
     // console.log(stars);
@@ -184,6 +280,35 @@ function mouseDragged() {
 function mouseReleased() {
   console.log(mouseX, mouseY);
   lowerright = {x: mouseX, y: mouseY};
+}
+
+
+function drawLines(constellation) {
+  constellation.connections.forEach(function(con) {
+    var start = constellation.filter(function(star) {
+      if (!nums.includes(con.start[1])) {
+        return star.name == con.start;
+      } else {
+        return star.id == con.start;
+      }
+    });
+    var end = constellation.filter(function(star) {
+      if (!nums.includes(con.end[1])) {
+        return star.name == con.end;
+      } else {
+        return star.id == con.end;
+      }
+    });
+    var start1 = start[0];
+    var end1 = end[0];
+    // console.log(start1, end1);
+    stroke(20, 20, 220);
+    if (constellation == serpent) {
+      // console.log('serp');
+      stroke(220, 20, 20);
+    }
+    line(start1.xCoord, start1.yCoord, end1.xCoord, end1.yCoord);
+  });
 }
 
 // function doubleClicked() {

@@ -8,4 +8,4 @@ Here's a map drawn using equatorial coordinates (right ascension and declination
 
 Working on adding in connection-lines:
 
-![screen shot 2018-02-27 at 9 54 32 pm](https://user-images.githubusercontent.com/29472568/36769274-eebf5066-1c08-11e8-95e5-010340c977a0.png)
+![screen shot 2018-02-27 at 10 50 33 pm](https://user-images.githubusercontent.com/29472568/36770586-b01f7950-1c10-11e8-99ad-480591f6c5fe.png)
