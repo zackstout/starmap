@@ -109,7 +109,7 @@ function setup() {
           fill(255);
         }
 
-        if (output.con == 'Oph') {
+        if (output.con == 'Leo') {
           fill(20, 20, 220);
         }
         ellipse(w - xCoord, yCoord, size / adjMag);

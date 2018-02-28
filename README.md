@@ -9,3 +9,15 @@ Here's a map drawn using equatorial coordinates (right ascension and declination
 Working on adding in connection-lines:
 
 ![screen shot 2018-02-27 at 10 50 33 pm](https://user-images.githubusercontent.com/29472568/36770586-b01f7950-1c10-11e8-99ad-480591f6c5fe.png)
+
+## Next steps:
+- Leo
+- Canis Minor
+- Herakles
+- Virgo
+- Gemini
+- Taurus
+- Orion
+- Pegasus
+- Andromeda
+- Perseus
