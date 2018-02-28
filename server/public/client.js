@@ -5,6 +5,7 @@ var h = 600;
 // very odd we have to initialize this locally, but w and h are ok as globals...:
 var size;
 var stars = [];
+var nums = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 
 var ursaMajor = [];
 
@@ -92,14 +93,39 @@ function setup() {
       {start: 'Megrez', end: 'Dubhe'},
       {start: 'Dubhe', end: 'Merak'},
       {start: 'Phad', end: 'Merak'},
+      {start: 'Dubhe', end: '46600'},
+      {start: 'Merak', end: '48182'},
+      {start: '46600', end: '41586'},
+      {start: '46600', end: '48182'},
+      {start: '41586', end: '48182'},
+
+      {start: 'Phad', end: '57226'},
+      {start: '57226', end: '55055'},
+      {start: '57226', end: '54380'},
+      {start: '54380', end: '50655'},
+      {start: '50655', end: '50230'},
+
+      {start: '48182', end: '46720'},
+      {start: '46720', end: '44343'},
+      {start: '44343', end: '44000'},
+
+
     ];
 
     ursaMajor.connections.forEach(function(con) {
       var start = ursaMajor.filter(function(star) {
-        return star.name == con.start;
+        if (!nums.includes(con.start[1])) {
+          return star.name == con.start;
+        } else {
+          return star.id == con.start;
+        }
       });
       var end = ursaMajor.filter(function(star) {
-        return star.name == con.end;
+        if (!nums.includes(con.end[1])) {
+          return star.name == con.end;
+        } else {
+          return star.id == con.end;
+        }
       });
       var start1 = start[0];
       var end1 = end[0];
