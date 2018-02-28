@@ -15,6 +15,16 @@ var aquila = [];
 var lyra = [];
 var serpent = [];
 var ophiuchus = [];
+var leo = [];
+var herakles = [];
+var draco = [];
+var scorpius = [];
+var sagittarius = [];
+var canisminor = [];
+var auriga = [];
+var gemini = [];
+var virgo = [];
+var capricorn = [];
 
 
 function setup() {
@@ -81,6 +91,36 @@ function setup() {
         if (output.con == 'Oph') {
           ophiuchus.push(output);
         }
+        if (output.con == 'Her') {
+          herakles.push(output);
+        }
+        if (output.con == 'Leo') {
+          leo.push(output);
+        }
+        if (output.con == 'Dra') {
+          draco.push(output);
+        }
+        if (output.con == 'Sgr') {
+          sagittarius.push(output);
+        }
+        if (output.con == 'Sco') {
+          scorpius.push(output);
+        }
+        if (output.con == 'Vir') {
+          virgo.push(output);
+        }
+        if (output.con == 'Gem') {
+          gemini.push(output);
+        }
+        if (output.con == 'Aur') {
+          auriga.push(output);
+        }
+        if (output.con == 'CMi') {
+          canisminor.push(output);
+        }
+        if (output.con == 'Cap') {
+          capricorn.push(output);
+        }
 
         noStroke();
         if (output.name) {
@@ -109,9 +149,18 @@ function setup() {
           fill(255);
         }
 
-        if (output.con == 'Leo') {
-          fill(20, 20, 220);
-        }
+        // if (output.con == 'Aur') {
+        //   fill(20, 20, 220);
+        // }
+        // if (output.con == 'Gem') {
+        //   fill(20, 220, 220);
+        // }
+        // if (output.con == 'Tau') {
+        //   fill('purple');
+        // }
+        // if (output.con == 'Cap') {
+        //   fill('yellow');
+        // }
         ellipse(w - xCoord, yCoord, size / adjMag);
         // console.log(output);
       }
@@ -216,6 +265,140 @@ function setup() {
       {start: '76997', end: '77214'},
       {start: '77836', end: '77214'},
     ];
+    leo.connections = [
+      {start: 'Algieba', end: 'Regulus'},
+      {start: 'Algieba', end: '50193'},
+      {start: 'Algieba', end: 'Zosma'},
+      {start: 'Zosma', end: 'Denebola'},
+      {start: 'Zosma', end: '54718'},
+      {start: 'Regulus', end: '54718'},
+      {start: 'Regulus', end: '47373'},
+      {start: '50193', end: '48318'},
+      {start: '48318', end: 'Ras Elased Australis'},
+    ];
+    herakles.connections = [
+      {start: '89860', end: '87994'},
+      {start: '87994', end: '86705'},
+      {start: '86705', end: '84121'},
+      {start: '86705', end: '84122'},
+      {start: '84121', end: 'Rasalgethi'},
+      {start: '84121', end: '82952'},
+      {start: '82952', end: '84122'},
+      {start: '82952', end: '81444'},
+      {start: '81444', end: 'Kornephoros'},
+      {start: '81444', end: '81583'},
+      {start: '81583', end: '80880'},
+      {start: '80880', end: '79750'},
+      {start: '79750', end: '78861'},
+      {start: 'Kornephoros', end: '79928'},
+      {start: '84122', end: '81583'},
+    ];
+    draco.connections = [
+      {start: 'Rastaban', end: 'Etamin'},
+      {start: 'Rastaban', end: '87314'},
+      {start: 'Etamin', end: '87314'},
+      {start: '87314', end: '94081'},
+      {start: '94081', end: '97124'},
+      {start: '97124', end: '89660'},
+      {start: '89660', end: '83638'},
+      {start: '83638', end: '80089'},
+      {start: '80089', end: '78290'},
+      {start: '78290', end: '75229'},
+      {start: '75229', end: 'Thuban'},
+      {start: 'Thuban', end: '61088'},
+      {start: '61088', end: '56044'},
+      {start: '56044', end: '47060'},
+    ];
+    scorpius.connections = [
+      {start: '79870', end: 'Antares'},
+      {start: '79870', end: '79134'},
+      {start: '79870', end: 'Graffias'},
+      {start: '79870', end: 'Dschubba'},
+      {start: '79870', end: '78029'},
+      {start: '79870', end: '77868'},
+      {start: 'Antares', end: '81020'},
+      {start: '81020', end: '82144'},
+      {start: '82144', end: '82263'},
+      {start: '82263', end: '82477'},
+      {start: '82477', end: '83885'},
+      {start: '83885', end: 'Sargas'},
+      {start: 'Sargas', end: '86403'},
+      {start: '86403', end: '86804'},
+      {start: '86804', end: 'Shaula'},
+    ];
+    sagittarius.connections = [
+      {start: 'Kaus Borealis', end: '89064'},
+      {start: 'Kaus Borealis', end: 'Kaus Meridionalis'},
+      {start: 'Kaus Borealis', end: '91754'},
+      {start: 'Kaus Meridionalis', end: 'Nash'},
+      {start: 'Kaus Meridionalis', end: 'Kaus Australis'},
+      {start: 'Kaus Australis', end: '89364'},
+      {start: 'Kaus Australis', end: '93213'},
+      {start: '93213', end: '91754'},
+      {start: '93213', end: '97721'},
+      {start: '93213', end: '93569'},
+      {start: '97721', end: '95052'},
+      {start: '97721', end: '94999'},
+      {start: '93569', end: 'Nunki'},
+      {start: '91754', end: 'Nunki'},
+      {start: '93388', end: 'Nunki'},
+      {start: 'Albaldah', end: '93388'},
+      {start: 'Albaldah', end: '94873'},
+      {start: '92793', end: '93388'},
+      {start: '92793', end: 'Albaldah'},
+    ];
+    gemini.connections = [
+      {start: 'Pollux', end: '36856'},
+      {start: 'Castor', end: '32161'},
+      {start: '32161', end: '30270'},
+      {start: '32161', end: '30810'},
+      {start: '30270', end: '29582'},
+      {start: '28664', end: '29582'},
+      {start: '36856', end: '35946'},
+      {start: '36856', end: '37633'},
+      {start: '32932', end: '35946'},
+      {start: '36856', end: '35453'},
+      {start: '35453', end: '34000'},
+      {start: '34000', end: 'Alhena'},
+      {start: '34000', end: '32276'},
+    ];
+    auriga.connections = [
+      {start: 'Capella', end: 'Menkalinan'},
+      {start: 'Capella', end: 'Hassaleh'},
+      {start: '28309', end: 'Menkalinan'},
+      // {start: '25364', end: 'Hassaleh'},
+      // {start: 'Alnath', end: '28309'},
+    ];
+    virgo.connections = [
+      {start: '66040', end: '68302'},
+      {start: '66040', end: 'Spica'},
+      {start: '66040', end: '62890'},
+      {start: '62890', end: 'Vindemiatrix'},
+      {start: '62890', end: 'Porrima'},
+      {start: 'Porrima', end: '59945'},
+      {start: 'Porrima', end: 'Spica'},
+      {start: '59945', end: '57584'},
+      {start: 'Spica', end: '69205'},
+      {start: '69205', end: '69479'},
+      {start: '69479', end: '71731'},
+      {start: '68302', end: '71994'},
+    ];
+    canisminor.connections = [
+      {start: 'Procyon', end: 'Gomeisa'},
+    ];
+    capricorn.connections = [
+      {start: '102647', end: '102154'},
+      {start: '100020', end: '99743'},
+      {start: '107213', end: '106642'},
+      {start: '106642', end: '105175'},
+      {start: '105175', end: '103804'},
+      {start: '105175', end: '105540'},
+      {start: '103804', end: '100020'},
+      {start: '103804', end: '102154'},
+      {start: '100020', end: '102154'},
+    ];
+
+
 
     drawLines(ursaMajor);
     drawLines(coronaBor);
@@ -225,6 +408,16 @@ function setup() {
     drawLines(aquila);
     drawLines(serpent);
     drawLines(ophiuchus);
+    drawLines(leo);
+    drawLines(herakles);
+    drawLines(draco);
+    drawLines(scorpius);
+    drawLines(sagittarius);
+    drawLines(virgo);
+    drawLines(canisminor);
+    drawLines(auriga);
+    drawLines(gemini);
+    drawLines(capricorn);
 
 
 
@@ -303,10 +496,9 @@ function drawLines(constellation) {
     var end1 = end[0];
     // console.log(start1, end1);
     stroke(20, 20, 220);
-    if (constellation == serpent) {
-      // console.log('serp');
-      stroke(220, 20, 20);
-    }
+    // if (constellation == serpent) {
+    //   stroke(220, 20, 20);
+    // }
     line(start1.xCoord, start1.yCoord, end1.xCoord, end1.yCoord);
   });
 }
