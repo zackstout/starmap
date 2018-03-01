@@ -1,5 +1,5 @@
 
-var radialView = true;
+var radialView = false;
 
 // would be cool if on hover you got a semi-transparent image of the constellation
 
@@ -11,7 +11,7 @@ var size;
 var stars = [];
 var nums = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 
-var radialScale = 4;
+var radialScale = 2.7;
 
 var ursaMajor = [];
 var coronaBor = [];
@@ -36,6 +36,17 @@ var crux = [];
 var centaurus = [];
 var carina = [];
 var cassiopeia = [];
+var delphinius = [];
+var corvus = [];
+var piscisaustrinus = [];
+var triangulum = [];
+var andromeda = [];
+var pegasus = [];
+var perseus = [];
+var eridanus = [];
+var aries = [];
+var cepheus = [];
+var orion = [];
 
 function preload() {
   img = loadImage('dogs.jpg');
@@ -72,12 +83,12 @@ function setup() {
       // because of parseFloat dog....
       // console.log(output.ra);
 
-
-
+// 85557
+//107265
       // only 1600 less than 5:
       // only 500 less than 4:
       // and only 5 less than 0!
-      if (parseFloat(output.mag) < 4.5 && output.name != 'Sol') {
+      if (parseFloat(output.mag) < 5.2 && output.name != 'Sol') {
 
         // console.log(output.ra, output.dec);
         // output.ra = (output.ra + 6) % 24;
@@ -92,6 +103,8 @@ function setup() {
         // console.log(output.ra);
         // changing to radial using Polaris as origin:
         // yeah......don't forget the parsefloat:
+
+        // Oh nice, we can pair this with Radial View to get a shifted radial:
         // var newX = (parseFloat(output.ra) + (12 - 2.5297)) % 24;
 
         var newX = output.ra;
@@ -103,7 +116,7 @@ function setup() {
 
 
         var theta = newX * 2 * Math.PI / 24;
-        var rad = 90 - parseFloat(output.dec);
+        var rad =  (90 - parseFloat(output.dec));
         // console.log(theta, rad);
 
         output.theta = theta;
@@ -127,38 +140,30 @@ function setup() {
           //   stroke(200);
           // }
 
-          // Shoot, only named stars have constellation listed:
-          // if (output.con == 'Cyg') {
-          //   console.log(output);
-          // }
-          // console.log(output.con);
-
-          // Color most luminous stars blue:
-          // if (parseFloat(output.absmag) < 0) {
-          //   fill(20, 20, 220);
-          // }
         } else {
           fill(255);
         }
 
-        if (output.con == 'Del') {
-          fill('orange');
-        }
-        if (output.con == 'PsA') {
+        // if (output.con == 'Ari') {
+        //   fill('orange');
+        // }
+        if (output.con == 'Per') {
           fill('green');
         }
-        if (output.con == 'TrA') {
+        if (output.con == 'Cet') {
           fill('purple');
         }
-        if (output.con == 'Crv') {
-          fill('red');
-        }
-        if (output.con == 'Ori') {
-          fill('yellow');
+        // if (output.con == 'Cep') {
+        //   fill('red');
+        // }
+        // if (output.con == 'Ori') {
+        //   fill('yellow');
+        // }
+        if (output.con == 'Vel') {
+          fill('blue');
         }
 
-        output.theta = theta;
-        output.rad = rad;
+
 
         // this is  a good learning point: you shouldn't use realnewx here and another name (i.e. the xcoord attached the object) elsewhere, i.e. when you draw the connecting lines.
         // or wait do we even want them to be the same?
@@ -167,15 +172,17 @@ function setup() {
 
 
           // i'm very confused why we can't use output.newx here.....
+          if (parseFloat(output.mag) < 4.6) {
 
-          if (radialView) {
-            translate(w/2, h/2);
-            ellipse(Math.cos(theta) * rad * radialScale, Math.sin(theta) * rad * radialScale, size / adjMag);
-            translate(-w/2, -h/2);
-          } else {
-            ellipse(w - realnewx, yCoord, size / adjMag);
-
+            if (radialView) {
+              translate(w/2, h/2);
+              ellipse(Math.cos(theta) * rad * radialScale, Math.sin(theta) * rad * radialScale, size / adjMag);
+              translate(-w/2, -h/2);
+            } else {
+              ellipse(w - realnewx, yCoord, size / adjMag);
+            }
           }
+
 
 
 
@@ -228,7 +235,7 @@ function setup() {
         if (output.con == 'Gem') {
           gemini.push(output);
         }
-        if (output.con == 'Aur') {
+        if (output.con == 'Aur' || output.name == 'Alnath') {
           auriga.push(output);
         }
         if (output.con == 'CMi') {
@@ -251,6 +258,39 @@ function setup() {
         }
         if (output.con == 'Cas') {
           cassiopeia.push(output);
+        }
+        if (output.con == 'TrA') {
+          triangulum.push(output);
+        }
+        if (output.con == 'Del') {
+          delphinius.push(output);
+        }
+        if (output.con == 'Crv') {
+          corvus.push(output);
+        }
+        if (output.con == 'PsA') {
+          piscisaustrinus.push(output);
+        }
+        if (output.con == 'And') {
+          andromeda.push(output);
+        }
+        if (output.con == 'Per') {
+          perseus.push(output);
+        }
+        if (output.con == 'Peg' || output.name == 'Alpheratz') {
+          pegasus.push(output);
+        }
+        if (output.con == 'Eri') {
+          eridanus.push(output);
+        }
+        if (output.con == 'Cep') {
+          cepheus.push(output);
+        }
+        if (output.con == 'Ari') {
+          aries.push(output);
+        }
+        if (output.con == 'Ori') {
+          orion.push(output);
         }
       }
     }); // end FOREACH
@@ -384,7 +424,9 @@ function setup() {
     ];
     draco.connections = [
       {start: 'Rastaban', end: 'Etamin'},
-      {start: 'Rastaban', end: '87314'},
+      {start: 'Rastaban', end: '85557'},
+      {start: '85557', end: '87314'},
+      // {start: 'Rastaban', end: '87314'},
       {start: 'Etamin', end: '87314'},
       {start: '87314', end: '94081'},
       {start: '94081', end: '97124'},
@@ -455,8 +497,8 @@ function setup() {
       {start: 'Capella', end: 'Menkalinan'},
       {start: 'Capella', end: 'Hassaleh'},
       {start: '28309', end: 'Menkalinan'},
-      // {start: '25364', end: 'Hassaleh'},
-      // {start: 'Alnath', end: '28309'},
+      {start: '25364', end: 'Hassaleh'},
+      {start: 'Alnath', end: '28309'},
     ];
     virgo.connections = [
       {start: '66040', end: '68302'},
@@ -537,14 +579,150 @@ function setup() {
       {start: 'Miaplacidus', end: '47866'},
       {start: '47866', end: '47719'},
     ];
-
     cassiopeia.connections = [
       {start: '8867', end: 'Ruchbah'},
       {start: 'Ruchbah', end: 'Cih'},
       {start: 'Cih', end: 'Shedir'},
       {start: 'Shedir', end: 'Caph'},
     ];
+    triangulum.connections = [
+      {start: 'Atria', end: '77716'},
+      {start: 'Atria', end: '74717'},
+      {start: '76206', end: '77716'},
+      {start: '76206', end: '74717'},
+    ];
+    delphinius.connections = [
+      {start: '101095', end: '101442'},
+      {start: '101442', end: '101263'},
+      {start: '101263', end: '101950'},
+      {start: '101263', end: '102201'},
+      {start: '101950', end: '102201'},
+      // hmm not quite right.
+    ];
+    piscisaustrinus.connections = [
+      {start: 'Fomalhaut', end: '111601'},
+      {start: '111601', end: '108939'},
+      {start: '108939', end: '108943'},
+      {start: '108943', end: '107265'},
+      {start: '108943', end: '107037'},
+      {start: '108943', end: '110841'},
+      {start: '107265', end: '107037'},
+      {start: '112588', end: '110841'},
+      {start: '112588', end: '112886'},
+      {start: 'Fomalhaut', end: '112886'},
 
+    ];
+    corvus.connections = [
+      {start: 'Algorab', end: 'Kraz'},
+      {start: 'Algorab', end: 'Gienah Ghurab'},
+      {start: 'Kraz', end: '59134'},
+      {start: 'Gienah Ghurab', end: '59134'},
+      {start: '59020', end: '59134'},
+
+    ];
+    pegasus.connections = [
+      {start: 'Alpheratz', end: 'Algenib'},
+      {start: 'Alpheratz', end: 'Scheat'},
+      {start: 'Algenib', end: 'Markab'},
+      {start: 'Scheat', end: 'Markab'},
+      {start: '111676', end: 'Markab'},
+      {start: '111676', end: '109081'},
+      {start: 'Enif', end: '109081'},
+      {start: '111698', end: 'Scheat'},
+      {start: '112389', end: 'Scheat'},
+      {start: '111698', end: '109064'},
+      {start: '112389', end: '112084'},
+      {start: '108830', end: '112084'},
+      {start: '108830', end: '107011'},
+    ];
+    andromeda.connections = [
+      {start: 'Alpheratz', end: '2906'},
+      {start: 'Alpheratz', end: '3025'},
+      {start: 'Mirach', end: '3025'},
+      {start: '4426', end: '2906'},
+      {start: 'Mirach', end: 'Almaak'},
+      {start: '4426', end: '7593'},
+    ];
+    perseus.connections = [
+      {start: 'Alpheratz', end: 'Algenib'},
+      {start: 'Alpheratz', end: 'Scheat'},
+      {start: 'Algenib', end: 'Markab'},
+      {start: 'Scheat', end: 'Markab'},
+      {start: '111676', end: 'Markab'},
+      {start: '111676', end: '109081'},
+      {start: 'Enif', end: '109081'},
+      {start: '111698', end: 'Scheat'},
+      {start: '112389', end: 'Scheat'},
+      {start: '111698', end: '109064'},
+      {start: '112389', end: '112084'},
+      {start: '108830', end: '112084'},
+      {start: '108830', end: '107011'},
+    ];
+    eridanus.connections = [
+      {start: 'Achernar', end: '8989'},
+      {start: '8989', end: '10578'},
+      {start: '10578', end: '11380'},
+      {start: '11380', end: '12452'},
+      {start: '12452', end: 'Acamar'},
+      {start: 'Acamar', end: '17309'},
+      {start: '17309', end: '19992'},
+      {start: '19992', end: '20483'},
+      {start: '20483', end: '21340'},
+      {start: '21340', end: '17609'},
+      {start: '17609', end: '16570'},
+      {start: '16570', end: '15344'},
+      {start: '15344', end: '14112'},
+      {start: '14112', end: '12810'},
+      {start: '12810', end: '13667'},
+      {start: '13667', end: '16496'},
+      {start: '16496', end: '17336'},
+      {start: '17336', end: 'Zaurak'},
+      {start: 'Zaurak', end: '19538'},
+      {start: '19538', end: '21391'},
+      {start: '21391', end: '22056'},
+      {start: '22056', end: 'Cursa'},
+    ];
+    cepheus.connections = [
+      {start: 'Alderamin', end: '109146'},
+      {start: '112364', end: '109146'},
+      {start: 'Alderamin', end: '105691'},
+      {start: '116361', end: '105691'},
+      {start: '116361', end: '112364'},
+      {start: '112364', end: '105691'},
+    ];
+    aries.connections = [
+      {start: '8813', end: 'Sheratan'},
+      {start: 'Hamal', end: 'Sheratan'},
+      {start: 'Hamal', end: '13176'},
+      {start: '13176', end: '14802'},
+    ];
+    orion.connections = [
+      {start: 'Betelgeuse', end: 'Alnitak'},
+      {start: 'Betelgeuse', end: '26142'},
+      {start: 'Betelgeuse', end: '28543'},
+      {start: 'Alnilam', end: 'Alnitak'},
+      {start: 'Saiph', end: 'Alnitak'},
+
+      {start: 'Saiph', end: 'Rigel'},
+      {start: 'Mintaka', end: 'Rigel'},
+      {start: 'Mintaka', end: 'Alnilam'},
+      {start: 'Mintaka', end: 'Bellatrix'},
+      {start: '26142', end: 'Bellatrix'},
+      {start: '22396', end: 'Bellatrix'},
+
+      {start: '28543', end: '29353'},
+      {start: '27844', end: '29353'},
+
+      {start: 'Alnilam', end: '26170'},
+      {start: 'Hatsya', end: '26170'},
+
+      {start: '22396', end: '22456'},
+      {start: '22396', end: '22496'},
+      {start: '22744', end: '22496'},
+      {start: '22744', end: '23069'},
+      {start: '22456', end: '22904'},
+
+    ];
 
 
     drawLines(ursaMajor);
@@ -570,11 +748,51 @@ function setup() {
     drawLines(centaurus);
     drawLines(crux);
     drawLines(cassiopeia);
+    drawLines(triangulum);
+    drawLines(delphinius);
+    drawLines(piscisaustrinus);
+    drawLines(corvus);
+    drawLines(pegasus);
+    drawLines(andromeda);
+    drawLines(eridanus);
+    drawLines(cepheus);
+    drawLines(orion);
+    drawLines(aries);
 
 
+    var increment = 250;
+    var numHours = 12;
 
+    // Draw coordinate grids:
+    if (radialView) {
+      translate(w/2, h/2);
+      noFill();
+      stroke('purple');
+      ellipse(0, 0, increment, increment);
+      ellipse(0, 0, 2 * increment, 2 * increment);
+      ellipse(0, 0, 3 * increment, 3 * increment);
+      ellipse(0, 0, 4 * increment, 4 * increment);
 
+      for (var i=0; i < numHours; i++) {
+        var x = Math.cos(i * Math.PI / (numHours / 2));
+        var y = Math.sin(i * Math.PI / (numHours / 2));
 
+        line(0, 0, x * 4 * increment, y * 4 * increment);
+
+      }
+
+      translate(-w/2, -h/2);
+    } else {
+      var wid = w / 12;
+      for (var j=0; j < 12; j++) {
+        stroke('purple');
+        line(j * wid, 0, j * wid, h);
+      }
+      var heig = h / 4;
+      for (var k=0; k < 4; k++) {
+        line(0, heig * k, w, heig * k);
+      }
+    }
 
     // console.log(stars);
   });
@@ -605,11 +823,11 @@ function mouseClicked() {
   // console.log(mouseX, mouseY);
   stars.forEach(function(star) {
     if (radialView) {
+      // Hmm, not sure why this isn't working:
       if (dist(mouseX, mouseY, Math.cos(star.theta) * star.rad * radialScale, Math.sin(star.theta) * star.rad * radialScale) < star.radius) {
         console.log(star);
       }
     } else {
-
       if (dist(mouseX, mouseY, star.xCoord, star.yCoord) < star.radius/1.5) {
         console.log(star);
       }
@@ -619,7 +837,7 @@ function mouseClicked() {
 }
 
 function mousePressed() {
-  console.log(mouseX, mouseY);
+  // console.log(mouseX, mouseY);
   upperleft = {x: mouseX, y: mouseY};
 }
 
@@ -631,7 +849,7 @@ function mouseDragged() {
 }
 
 function mouseReleased() {
-  console.log(mouseX, mouseY);
+  // console.log(mouseX, mouseY);
   lowerright = {x: mouseX, y: mouseY};
 }
 
