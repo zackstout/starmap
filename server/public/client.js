@@ -1,4 +1,5 @@
 
+var radialView = true;
 
 // would be cool if on hover you got a semi-transparent image of the constellation
 
@@ -10,7 +11,7 @@ var size;
 var stars = [];
 var nums = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 
-var radialScale = 3;
+var radialScale = 4;
 
 var ursaMajor = [];
 var coronaBor = [];
@@ -34,6 +35,7 @@ var canismajor = [];
 var crux = [];
 var centaurus = [];
 var carina = [];
+var cassiopeia = [];
 
 function preload() {
   img = loadImage('dogs.jpg');
@@ -58,7 +60,6 @@ function setup() {
       // }
       var output = {
         dec: star.dec,
-        // ra: (star.ra + 10) % 24,
         ra: star.ra,
         mag: star.mag,
         name: star.proper,
@@ -105,7 +106,8 @@ function setup() {
         var rad = 90 - parseFloat(output.dec);
         // console.log(theta, rad);
 
-
+        output.theta = theta;
+        output.rad = rad;
 
 
         stars.push(output);
@@ -162,11 +164,21 @@ function setup() {
         // or wait do we even want them to be the same?
         // if (output.name != 'Sirius') {
 
-          // i'm very confused why we can't use output.newx here......
-          // ellipse(w - realnewx, yCoord, size / adjMag);
-          translate(w/2, h/2);
-          ellipse(Math.cos(theta) * rad * radialScale, Math.sin(theta) * rad * radialScale, size / adjMag);
-          translate(-w/2, -h/2);
+
+
+          // i'm very confused why we can't use output.newx here.....
+
+          if (radialView) {
+            translate(w/2, h/2);
+            ellipse(Math.cos(theta) * rad * radialScale, Math.sin(theta) * rad * radialScale, size / adjMag);
+            translate(-w/2, -h/2);
+          } else {
+            ellipse(w - realnewx, yCoord, size / adjMag);
+
+          }
+
+
+
         // }
         // console.log(output);
 
@@ -236,6 +248,9 @@ function setup() {
         }
         if (output.con == 'Cen') {
           centaurus.push(output);
+        }
+        if (output.con == 'Cas') {
+          cassiopeia.push(output);
         }
       }
     }); // end FOREACH
@@ -523,6 +538,13 @@ function setup() {
       {start: '47866', end: '47719'},
     ];
 
+    cassiopeia.connections = [
+      {start: '8867', end: 'Ruchbah'},
+      {start: 'Ruchbah', end: 'Cih'},
+      {start: 'Cih', end: 'Shedir'},
+      {start: 'Shedir', end: 'Caph'},
+    ];
+
 
 
     drawLines(ursaMajor);
@@ -547,6 +569,7 @@ function setup() {
     drawLines(carina);
     drawLines(centaurus);
     drawLines(crux);
+    drawLines(cassiopeia);
 
 
 
@@ -581,9 +604,17 @@ var lowerright;
 function mouseClicked() {
   // console.log(mouseX, mouseY);
   stars.forEach(function(star) {
-    if (dist(mouseX, mouseY, star.xCoord, star.yCoord) < star.radius/1.5) {
-      console.log(star);
+    if (radialView) {
+      if (dist(mouseX, mouseY, Math.cos(star.theta) * star.rad * radialScale, Math.sin(star.theta) * star.rad * radialScale) < star.radius) {
+        console.log(star);
+      }
+    } else {
+
+      if (dist(mouseX, mouseY, star.xCoord, star.yCoord) < star.radius/1.5) {
+        console.log(star);
+      }
     }
+
   });
 }
 
@@ -628,14 +659,22 @@ function drawLines(constellation) {
     // if (constellation == serpent) {
     //   stroke(220, 20, 20);
     // }
-    line(start1.newx, start1.yCoord, end1.newx, end1.yCoord);
 
 
 
-    // Converting to polar coordinates:
-    translate(w/2, h/2);
-    line(Math.cos(start1.theta) * start1.rad * radialScale, Math.sin(start1.theta) * start1.rad * radialScale, Math.cos(end1.theta) * end1.rad * 3, Math.sin(end1.theta) * end1.rad * 3);
-    translate(-w/2, -h/2);
+    if (radialView) {
+      // Converting to polar coordinates:
+      translate(w/2, h/2);
+      line(Math.cos(start1.theta) * start1.rad * radialScale, Math.sin(start1.theta) * start1.rad * radialScale, Math.cos(end1.theta) * end1.rad * radialScale, Math.sin(end1.theta) * end1.rad * radialScale);
+      translate(-w/2, -h/2);
+    } else {
+
+      // Solving the border-to-border problem:
+      if (dist(start1.newx, start1.yCoord, end1.newx, end1.yCoord) < 200) {
+        line(start1.newx, start1.yCoord, end1.newx, end1.yCoord);
+      }
+    }
+
 
 
   });
