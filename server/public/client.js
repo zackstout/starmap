@@ -87,7 +87,7 @@ function setup() {
         var newX = (parseFloat(output.ra) + (12 - 2.5297)) % 24;
         var realnewx = newX * w/24;
         console.log(newX, output.ra);
-        output.newx = newX;
+        output.newx = w - realnewx;
 
 
         stars.push(output);
@@ -201,6 +201,10 @@ function setup() {
         if (output.con == 'Ori') {
           fill('yellow');
         }
+
+
+
+        // this is  a good learning point: you shouldn't use realnewx here and another name (i.e. the xcoord attached the object) elsewhere, i.e. when you draw the connecting lines.
         // if (output.name != 'Sirius') {
           ellipse(w - realnewx, yCoord, size / adjMag);
 
@@ -597,7 +601,7 @@ function drawLines(constellation) {
     // if (constellation == serpent) {
     //   stroke(220, 20, 20);
     // }
-    line(start1.xCoord, start1.yCoord, end1.xCoord, end1.yCoord);
+    line(start1.newx, start1.yCoord, end1.newx, end1.yCoord);
   });
 }
 
