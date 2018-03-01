@@ -43,7 +43,7 @@ function setup() {
   createCanvas(w, h);
   background(200);
 
-  image(img, 100, 100, 100, 100);
+  // image(img, 100, 100, 100, 100);
 
 
   d3.csv('hygdata_v3.csv', function(data) {
@@ -94,7 +94,16 @@ function setup() {
         var newX = output.ra;
         var realnewx = newX * w/24;
         // console.log(newX, output.ra);
+
+        // ok the lines need to access this, but the ellipses don't:
         output.newx = w - realnewx;
+
+
+        var theta = newX * 2 * Math.PI / 24;
+        var rad = 90 - parseFloat(output.dec);
+        // console.log(theta, rad);
+
+
 
 
         stars.push(output);
@@ -212,9 +221,14 @@ function setup() {
 
 
         // this is  a good learning point: you shouldn't use realnewx here and another name (i.e. the xcoord attached the object) elsewhere, i.e. when you draw the connecting lines.
+        // or wait do we even want them to be the same?
         // if (output.name != 'Sirius') {
-          ellipse(w - realnewx, yCoord, size / adjMag);
 
+          // i'm very confused why we can't use output.newx here......
+          // ellipse(w - realnewx, yCoord, size / adjMag);
+          translate(w/2, h/2);
+          ellipse(Math.cos(theta) * rad * 3, Math.sin(theta) * rad * 3, size / adjMag);
+          translate(-w/2, -h/2)
         // }
         // console.log(output);
       }
@@ -505,28 +519,28 @@ function setup() {
 
 
 
-    drawLines(ursaMajor);
-    drawLines(coronaBor);
-    drawLines(cygnus);
-    drawLines(bootes);
-    drawLines(lyra);
-    drawLines(aquila);
-    drawLines(serpent);
-    drawLines(ophiuchus);
-    drawLines(leo);
-    drawLines(herakles);
-    drawLines(draco);
-    drawLines(scorpius);
-    drawLines(sagittarius);
-    drawLines(virgo);
-    drawLines(canisminor);
-    drawLines(auriga);
-    drawLines(gemini);
-    drawLines(capricorn);
-    drawLines(canismajor);
-    drawLines(carina);
-    drawLines(centaurus);
-    drawLines(crux);
+    // drawLines(ursaMajor);
+    // drawLines(coronaBor);
+    // drawLines(cygnus);
+    // drawLines(bootes);
+    // drawLines(lyra);
+    // drawLines(aquila);
+    // drawLines(serpent);
+    // drawLines(ophiuchus);
+    // drawLines(leo);
+    // drawLines(herakles);
+    // drawLines(draco);
+    // drawLines(scorpius);
+    // drawLines(sagittarius);
+    // drawLines(virgo);
+    // drawLines(canisminor);
+    // drawLines(auriga);
+    // drawLines(gemini);
+    // drawLines(capricorn);
+    // drawLines(canismajor);
+    // drawLines(carina);
+    // drawLines(centaurus);
+    // drawLines(crux);
 
 
 
