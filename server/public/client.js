@@ -1,4 +1,7 @@
 
+
+// would be cool if on hover you got a semi-transparent image of the constellation
+
 var namedStars = [];
 var w = 1000;
 var h = 600;
@@ -25,6 +28,10 @@ var auriga = [];
 var gemini = [];
 var virgo = [];
 var capricorn = [];
+var canismajor = [];
+var crux = [];
+var centaurus = [];
+var carina = [];
 
 
 function setup() {
@@ -44,6 +51,7 @@ function setup() {
       // }
       var output = {
         dec: star.dec,
+        // ra: (star.ra + 10) % 24,
         ra: star.ra,
         mag: star.mag,
         name: star.proper,
@@ -52,18 +60,35 @@ function setup() {
         id: star.id
       };
 
+      // why can't i change it?!?!!?
+      // because of parseFloat dog....
+      // console.log(output.ra);
+
+
+
       // only 1600 less than 5:
       // only 500 less than 4:
       // and only 5 less than 0!
-      if (parseFloat(output.mag) < 4.3 && output.name != 'Sol') {
+      if (parseFloat(output.mag) < 4.5 && output.name != 'Sol') {
 
         // console.log(output.ra, output.dec);
-        var xCoord = output.ra * w/24;
+        // output.ra = (output.ra + 6) % 24;
+        var xCoord = (output.ra * w/24);
         var yCoord = h/2 - output.dec * h/180;
         var adjMag = parseFloat(output.mag) + 3;
         output.xCoord = w - xCoord;
         output.yCoord = yCoord;
         output.radius = size / adjMag;
+
+        console.log(xCoord);
+        console.log(output.ra);
+        // changing to radial using Polaris as origin:
+        // yeah......don't forget the parsefloat:
+        var newX = (parseFloat(output.ra) + (12 - 2.5297)) % 24;
+        var realnewx = newX * w/24;
+        console.log(newX, output.ra);
+        output.newx = newX;
+
 
         stars.push(output);
 
@@ -121,6 +146,18 @@ function setup() {
         if (output.con == 'Cap') {
           capricorn.push(output);
         }
+        if (output.con == 'Car') {
+          carina.push(output);
+        }
+        if (output.con == 'Cru') {
+          crux.push(output);
+        }
+        if (output.con == 'CMa') {
+          canismajor.push(output);
+        }
+        if (output.con == 'Cen') {
+          centaurus.push(output);
+        }
 
         noStroke();
         if (output.name) {
@@ -149,19 +186,25 @@ function setup() {
           fill(255);
         }
 
-        // if (output.con == 'Aur') {
-        //   fill(20, 20, 220);
+        if (output.con == 'Del') {
+          fill('orange');
+        }
+        if (output.con == 'PsA') {
+          fill('green');
+        }
+        if (output.con == 'TrA') {
+          fill('purple');
+        }
+        if (output.con == 'Crv') {
+          fill('red');
+        }
+        if (output.con == 'Ori') {
+          fill('yellow');
+        }
+        // if (output.name != 'Sirius') {
+          ellipse(w - realnewx, yCoord, size / adjMag);
+
         // }
-        // if (output.con == 'Gem') {
-        //   fill(20, 220, 220);
-        // }
-        // if (output.con == 'Tau') {
-        //   fill('purple');
-        // }
-        // if (output.con == 'Cap') {
-        //   fill('yellow');
-        // }
-        ellipse(w - xCoord, yCoord, size / adjMag);
         // console.log(output);
       }
     }); // end FOREACH
@@ -397,6 +440,57 @@ function setup() {
       {start: '103804', end: '102154'},
       {start: '100020', end: '102154'},
     ];
+    crux.connections = [
+      {start: 'Gacrux', end: 'Acrux'},
+      {start: 'Becrux', end: '59565'}
+    ];
+    canismajor.connections = [
+      {start: 'Sirius', end: 'Mirzam'},
+      {start: 'Sirius', end: '33260'},
+      {start: 'Sirius', end: 'Wezen'},
+      {start: '33260', end: '33956'},
+      {start: '33260', end: '33073'},
+      {start: 'Wezen', end: 'Aludra'},
+      {start: 'Wezen', end: 'Adhara'},
+      {start: 'Adhara', end: '30049'},
+      {start: '33956', end: '33073'},
+    ];
+    centaurus.connections = [
+      {start: '66447', end: 'Hadar'},
+      {start: '66447', end: '61739'},
+      {start: '66447', end: '67786'},
+      {start: 'Hadar', end: 'Rigil Kentaurus'},
+      {start: '61739', end: '58994'},
+      {start: '59016', end: '58994'},
+      {start: '59267', end: '58994'},
+      {start: '59267', end: '56392'},
+      {start: '59016', end: '55260'},
+      {start: '67786', end: '67251'},
+      {start: '67786', end: '68027'},
+      {start: '67786', end: '61739'},
+
+      {start: '68027', end: '71125'},
+      {start: '68027', end: '69867'},
+      {start: '71125', end: '73107'},
+      {start: '67251', end: '67259'},
+      {start: '67259', end: '65729'},
+      {start: '67259', end: 'Menkent'},
+      {start: 'Menkent', end: '69867'},
+      {start: '65729', end: '64904'},
+      {start: '62699', end: '64904'},
+    ];
+    carina.connections = [
+      {start: 'Canopus', end: '38713'},
+      {start: '38713', end: 'Avior'},
+      {start: 'Avior', end: 'Tureis'},
+      {start: 'Tureis', end: '50229'},
+      {start: '50229', end: '51428'},
+      {start: '51428', end: '52268'},
+      {start: '52268', end: '49958'},
+      {start: '49958', end: 'Miaplacidus'},
+      {start: 'Miaplacidus', end: '47866'},
+      {start: '47866', end: '47719'},
+    ];
 
 
 
@@ -418,6 +512,10 @@ function setup() {
     drawLines(auriga);
     drawLines(gemini);
     drawLines(capricorn);
+    drawLines(canismajor);
+    drawLines(carina);
+    drawLines(centaurus);
+    drawLines(crux);
 
 
 
