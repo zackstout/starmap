@@ -10,6 +10,8 @@ var size;
 var stars = [];
 var nums = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 
+var radialScale = 3;
+
 var ursaMajor = [];
 var coronaBor = [];
 var cygnus = [];
@@ -163,7 +165,7 @@ function setup() {
           // i'm very confused why we can't use output.newx here......
           // ellipse(w - realnewx, yCoord, size / adjMag);
           translate(w/2, h/2);
-          ellipse(Math.cos(theta) * rad * 3, Math.sin(theta) * rad * 3, size / adjMag);
+          ellipse(Math.cos(theta) * rad * radialScale, Math.sin(theta) * rad * radialScale, size / adjMag);
           translate(-w/2, -h/2);
         // }
         // console.log(output);
@@ -630,8 +632,9 @@ function drawLines(constellation) {
 
 
 
+    // Converting to polar coordinates:
     translate(w/2, h/2);
-    line(Math.cos(start1.theta) * start1.rad * 3, Math.sin(start1.theta) * start1.rad * 3, Math.cos(end1.theta) * end1.rad * 3, Math.sin(end1.theta) * end1.rad * 3);
+    line(Math.cos(start1.theta) * start1.rad * radialScale, Math.sin(start1.theta) * start1.rad * radialScale, Math.cos(end1.theta) * end1.rad * 3, Math.sin(end1.theta) * end1.rad * 3);
     translate(-w/2, -h/2);
 
 
