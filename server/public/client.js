@@ -33,12 +33,17 @@ var crux = [];
 var centaurus = [];
 var carina = [];
 
+function preload() {
+  img = loadImage('dogs.jpg');
+}
 
 function setup() {
   size = 30;
 
   createCanvas(w, h);
   background(200);
+
+  image(img, 100, 100, 100, 100);
 
 
   d3.csv('hygdata_v3.csv', function(data) {
@@ -79,14 +84,16 @@ function setup() {
         output.xCoord = w - xCoord;
         output.yCoord = yCoord;
         output.radius = size / adjMag;
-
-        console.log(xCoord);
-        console.log(output.ra);
+        //
+        // console.log(xCoord);
+        // console.log(output.ra);
         // changing to radial using Polaris as origin:
         // yeah......don't forget the parsefloat:
-        var newX = (parseFloat(output.ra) + (12 - 2.5297)) % 24;
+        // var newX = (parseFloat(output.ra) + (12 - 2.5297)) % 24;
+
+        var newX = output.ra;
         var realnewx = newX * w/24;
-        console.log(newX, output.ra);
+        // console.log(newX, output.ra);
         output.newx = w - realnewx;
 
 
