@@ -108,6 +108,67 @@ function setup() {
 
         stars.push(output);
 
+
+
+        noStroke();
+        if (output.name) {
+          fill(100);
+          namedStars.push(output);
+          // fiddling with this suggests that we're backwards left-right wise:
+          // if (output.name == 'Sadr') {
+          //   noFill();
+          //   stroke(255, 0, 0);
+          //   ellipse(w - xCoord, yCoord, 120);
+          //   fill(100);
+          //   stroke(200);
+          // }
+
+          // Shoot, only named stars have constellation listed:
+          // if (output.con == 'Cyg') {
+          //   console.log(output);
+          // }
+          // console.log(output.con);
+
+          // Color most luminous stars blue:
+          // if (parseFloat(output.absmag) < 0) {
+          //   fill(20, 20, 220);
+          // }
+        } else {
+          fill(255);
+        }
+
+        if (output.con == 'Del') {
+          fill('orange');
+        }
+        if (output.con == 'PsA') {
+          fill('green');
+        }
+        if (output.con == 'TrA') {
+          fill('purple');
+        }
+        if (output.con == 'Crv') {
+          fill('red');
+        }
+        if (output.con == 'Ori') {
+          fill('yellow');
+        }
+
+        output.theta = theta;
+        output.rad = rad;
+
+        // this is  a good learning point: you shouldn't use realnewx here and another name (i.e. the xcoord attached the object) elsewhere, i.e. when you draw the connecting lines.
+        // or wait do we even want them to be the same?
+        // if (output.name != 'Sirius') {
+
+          // i'm very confused why we can't use output.newx here......
+          // ellipse(w - realnewx, yCoord, size / adjMag);
+          translate(w/2, h/2);
+          ellipse(Math.cos(theta) * rad * 3, Math.sin(theta) * rad * 3, size / adjMag);
+          translate(-w/2, -h/2);
+        // }
+        // console.log(output);
+
+        // Add stars to constellation objects:
         if (output.con == 'UMa') {
           ursaMajor.push(output);
         }
@@ -174,63 +235,6 @@ function setup() {
         if (output.con == 'Cen') {
           centaurus.push(output);
         }
-
-        noStroke();
-        if (output.name) {
-          fill(100);
-          namedStars.push(output);
-          // fiddling with this suggests that we're backwards left-right wise:
-          // if (output.name == 'Sadr') {
-          //   noFill();
-          //   stroke(255, 0, 0);
-          //   ellipse(w - xCoord, yCoord, 120);
-          //   fill(100);
-          //   stroke(200);
-          // }
-
-          // Shoot, only named stars have constellation listed:
-          // if (output.con == 'Cyg') {
-          //   console.log(output);
-          // }
-          // console.log(output.con);
-
-          // Color most luminous stars blue:
-          // if (parseFloat(output.absmag) < 0) {
-          //   fill(20, 20, 220);
-          // }
-        } else {
-          fill(255);
-        }
-
-        if (output.con == 'Del') {
-          fill('orange');
-        }
-        if (output.con == 'PsA') {
-          fill('green');
-        }
-        if (output.con == 'TrA') {
-          fill('purple');
-        }
-        if (output.con == 'Crv') {
-          fill('red');
-        }
-        if (output.con == 'Ori') {
-          fill('yellow');
-        }
-
-
-
-        // this is  a good learning point: you shouldn't use realnewx here and another name (i.e. the xcoord attached the object) elsewhere, i.e. when you draw the connecting lines.
-        // or wait do we even want them to be the same?
-        // if (output.name != 'Sirius') {
-
-          // i'm very confused why we can't use output.newx here......
-          // ellipse(w - realnewx, yCoord, size / adjMag);
-          translate(w/2, h/2);
-          ellipse(Math.cos(theta) * rad * 3, Math.sin(theta) * rad * 3, size / adjMag);
-          translate(-w/2, -h/2)
-        // }
-        // console.log(output);
       }
     }); // end FOREACH
 
@@ -519,28 +523,28 @@ function setup() {
 
 
 
-    // drawLines(ursaMajor);
-    // drawLines(coronaBor);
-    // drawLines(cygnus);
-    // drawLines(bootes);
-    // drawLines(lyra);
-    // drawLines(aquila);
-    // drawLines(serpent);
-    // drawLines(ophiuchus);
-    // drawLines(leo);
-    // drawLines(herakles);
-    // drawLines(draco);
-    // drawLines(scorpius);
-    // drawLines(sagittarius);
-    // drawLines(virgo);
-    // drawLines(canisminor);
-    // drawLines(auriga);
-    // drawLines(gemini);
-    // drawLines(capricorn);
-    // drawLines(canismajor);
-    // drawLines(carina);
-    // drawLines(centaurus);
-    // drawLines(crux);
+    drawLines(ursaMajor);
+    drawLines(coronaBor);
+    drawLines(cygnus);
+    drawLines(bootes);
+    drawLines(lyra);
+    drawLines(aquila);
+    drawLines(serpent);
+    drawLines(ophiuchus);
+    drawLines(leo);
+    drawLines(herakles);
+    drawLines(draco);
+    drawLines(scorpius);
+    drawLines(sagittarius);
+    drawLines(virgo);
+    drawLines(canisminor);
+    drawLines(auriga);
+    drawLines(gemini);
+    drawLines(capricorn);
+    drawLines(canismajor);
+    drawLines(carina);
+    drawLines(centaurus);
+    drawLines(crux);
 
 
 
@@ -623,6 +627,14 @@ function drawLines(constellation) {
     //   stroke(220, 20, 20);
     // }
     line(start1.newx, start1.yCoord, end1.newx, end1.yCoord);
+
+
+
+    translate(w/2, h/2);
+    line(Math.cos(start1.theta) * start1.rad * 3, Math.sin(start1.theta) * start1.rad * 3, Math.cos(end1.theta) * end1.rad * 3, Math.sin(end1.theta) * end1.rad * 3);
+    translate(-w/2, -h/2);
+
+
   });
 }
 
