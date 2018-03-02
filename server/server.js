@@ -31,6 +31,10 @@ app.get('/stars', function(req, res) {
   res.send(allStars);
 });
 
+app.post('/data', function(req, res) {
+
+});
+
 app.post('/con', function(req, res) {
   console.log(req.body.name);
   pool.connect(function (errorConnectingToDb, db, done) {

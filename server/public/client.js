@@ -17,6 +17,8 @@ var nums = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 // var radialScale = 6.2;
 var radialScale = 2.87 * 2;
 
+var allConstellations = [];
+
 var ursaMajor = [];
 var coronaBor = [];
 var cygnus = [];
@@ -66,24 +68,22 @@ function setup() {
   createCanvas(w, h);
   background(200);
 
-  // image(img, 100, 100, 100, 100);
-  d3.csv('uniqueconstellations.csv', function(da) {
-    console.log(da);
-    var cons = [];
-    da.forEach(function(d) {
-      cons.push(d.constellation);
-    });
-    cons.forEach(function(con) {
-      var obj = {name: con};
-      $.ajax({
-        type: "POST",
-        url: "/con",
-        data: obj
-      });
-    });
-    // var obj = {da: da}
-
-  });
+  // d3.csv('uniqueconstellations.csv', function(da) {
+  //   console.log(da);
+  //   var cons = [];
+  //   da.forEach(function(d) {
+  //     cons.push(d.constellation);
+  //   });
+  //   cons.forEach(function(con) {
+  //     var obj = {name: con};
+  //     $.ajax({
+  //       type: "POST",
+  //       url: "/con",
+  //       data: obj
+  //     });
+  //   });
+  //
+  // });
 
   d3.csv('hygdata_v3.csv', function(data) {
     console.log(data);
@@ -139,15 +139,15 @@ function setup() {
         output.yCoord = yCoord;
         output.radius = size / adjMag;
 
-        $.ajax({
-          type: 'POST',
-          url: '/stars',
-          data: output2
-        }).done(function(res) {
-          // console.log(res);
-        }).catch(function(err) {
-          console.log(err);
-        });
+        // $.ajax({
+        //   type: 'POST',
+        //   url: '/stars',
+        //   data: output2
+        // }).done(function(res) {
+        //   // console.log(res);
+        // }).catch(function(err) {
+        //   console.log(err);
+        // });
 
 
         //
@@ -376,12 +376,15 @@ function setup() {
       {start: '46720', end: '44343'},
       {start: '44343', end: '44000'},
     ];
+    allConstellations.push(ursaMajor);
     coronaBor.connections = [
       {start: '77923', end: '76716'},
       {start: '76716', end: 'Alphekka'},
       {start: 'Alphekka', end: '75466'},
       {start: '75466', end: '75895'},
     ];
+    allConstellations.push(coronaBor);
+
     cygnus.connections = [
       {start: 'Deneb', end: 'Sadr'},
       {start: 'Sadr', end: '96858'},
@@ -391,6 +394,8 @@ function setup() {
       {start: '97799', end: 'Albireo'},
       {start: 'Gienah', end: '104394'},
     ];
+    allConstellations.push(cygnus);
+
     bootes.connections = [
       {start: 'Arcturus', end: '70828'},
       {start: 'Arcturus', end: '71569'},
@@ -405,6 +410,8 @@ function setup() {
       {start: '69510', end: '67711'},
       {start: '67711', end: '67246'},
     ];
+    allConstellations.push(bootes);
+
     aquila.connections = [
       {start: 'Altair', end: 'Tarazed'},
       {start: 'Altair', end: 'Alshain'},
@@ -419,12 +426,16 @@ function setup() {
       // {start: '69510', end: '67711'},
       // {start: '67711', end: '67246'},
     ];
+    allConstellations.push(aquila);
+
     lyra.connections = [
       {start: 'Vega', end: 'Sheliak'},
       {start: 'Vega', end: '92502'},
       {start: 'Sheliak', end: '92902'},
       {start: '92902', end: '92502'},
     ];
+    allConstellations.push(lyra);
+
     ophiuchus.connections = [
       {start: 'Rasalhague', end: '82745'},
       {start: 'Rasalhague', end: 'Cebalrai'},
@@ -440,6 +451,8 @@ function setup() {
       {start: '83755', end: '84711'},
       {start: '84711', end: '85164'},
     ];
+    allConstellations.push(ophiuchus);
+
     serpent.connections = [
       {start: '89684', end: '86298'},
       {start: '86298', end: '85998'},
@@ -452,6 +465,8 @@ function setup() {
       {start: '76997', end: '77214'},
       {start: '77836', end: '77214'},
     ];
+    allConstellations.push(serpent);
+
     leo.connections = [
       {start: 'Algieba', end: 'Regulus'},
       {start: 'Algieba', end: '50193'},
@@ -463,6 +478,8 @@ function setup() {
       {start: '50193', end: '48318'},
       {start: '48318', end: 'Ras Elased Australis'},
     ];
+    allConstellations.push(leo);
+
     herakles.connections = [
       {start: '89860', end: '87994'},
       {start: '87994', end: '86705'},
@@ -480,6 +497,8 @@ function setup() {
       {start: 'Kornephoros', end: '79928'},
       {start: '84122', end: '81583'},
     ];
+    allConstellations.push(herakles);
+
     draco.connections = [
       {start: 'Rastaban', end: 'Etamin'},
       {start: 'Rastaban', end: '85557'},
@@ -498,6 +517,8 @@ function setup() {
       {start: '61088', end: '56044'},
       {start: '56044', end: '47060'},
     ];
+    allConstellations.push(draco);
+
     scorpius.connections = [
       {start: '79870', end: 'Antares'},
       {start: '79870', end: '79134'},
@@ -515,6 +536,8 @@ function setup() {
       {start: '86403', end: '86804'},
       {start: '86804', end: 'Shaula'},
     ];
+    allConstellations.push(scorpius);
+
     sagittarius.connections = [
       {start: 'Kaus Borealis', end: '89064'},
       {start: 'Kaus Borealis', end: 'Kaus Meridionalis'},
@@ -536,6 +559,8 @@ function setup() {
       {start: '92793', end: '93388'},
       {start: '92793', end: 'Albaldah'},
     ];
+    allConstellations.push(sagittarius);
+
     gemini.connections = [
       {start: 'Pollux', end: '36856'},
       {start: 'Castor', end: '32161'},
@@ -551,6 +576,8 @@ function setup() {
       {start: '34000', end: 'Alhena'},
       {start: '34000', end: '32276'},
     ];
+    allConstellations.push(gemini);
+
     auriga.connections = [
       {start: 'Capella', end: 'Menkalinan'},
       {start: 'Capella', end: 'Hassaleh'},
@@ -558,6 +585,8 @@ function setup() {
       {start: '25364', end: 'Hassaleh'},
       {start: 'Alnath', end: '28309'},
     ];
+    allConstellations.push(auriga);
+
     virgo.connections = [
       {start: '66040', end: '68302'},
       {start: '66040', end: 'Spica'},
@@ -572,9 +601,13 @@ function setup() {
       {start: '69479', end: '71731'},
       {start: '68302', end: '71994'},
     ];
+    allConstellations.push(virgo);
+
     canisminor.connections = [
       {start: 'Procyon', end: 'Gomeisa'},
     ];
+    allConstellations.push(canisminor);
+
     capricorn.connections = [
       {start: '102647', end: '102154'},
       {start: '100020', end: '99743'},
@@ -586,10 +619,14 @@ function setup() {
       {start: '103804', end: '102154'},
       {start: '100020', end: '102154'},
     ];
+    allConstellations.push(capricorn);
+
     crux.connections = [
       {start: 'Gacrux', end: 'Acrux'},
       {start: 'Becrux', end: '59565'}
     ];
+    allConstellations.push(crux);
+
     canismajor.connections = [
       {start: 'Sirius', end: 'Mirzam'},
       {start: 'Sirius', end: '33260'},
@@ -601,6 +638,8 @@ function setup() {
       {start: 'Adhara', end: '30049'},
       {start: '33956', end: '33073'},
     ];
+    allConstellations.push(canismajor);
+
     centaurus.connections = [
       {start: '66447', end: 'Hadar'},
       {start: '66447', end: '61739'},
@@ -625,6 +664,8 @@ function setup() {
       {start: '65729', end: '64904'},
       {start: '62699', end: '64904'},
     ];
+    allConstellations.push(centaurus);
+
     carina.connections = [
       {start: 'Canopus', end: '38713'},
       {start: '38713', end: 'Avior'},
@@ -637,18 +678,24 @@ function setup() {
       {start: 'Miaplacidus', end: '47866'},
       {start: '47866', end: '47719'},
     ];
+    allConstellations.push(carina);
+
     cassiopeia.connections = [
       {start: '8867', end: 'Ruchbah'},
       {start: 'Ruchbah', end: 'Cih'},
       {start: 'Cih', end: 'Shedir'},
       {start: 'Shedir', end: 'Caph'},
     ];
+    allConstellations.push(cassiopeia);
+
     triangulum.connections = [
       {start: 'Atria', end: '77716'},
       {start: 'Atria', end: '74717'},
       {start: '76206', end: '77716'},
       {start: '76206', end: '74717'},
     ];
+    allConstellations.push(triangulum);
+
     delphinius.connections = [
       {start: '101095', end: '101442'},
       {start: '101442', end: '101263'},
@@ -657,6 +704,8 @@ function setup() {
       {start: '101950', end: '102201'},
       // hmm not quite right.
     ];
+    allConstellations.push(delphinius);
+
     piscisaustrinus.connections = [
       {start: 'Fomalhaut', end: '111601'},
       {start: '111601', end: '108939'},
@@ -668,16 +717,18 @@ function setup() {
       {start: '112588', end: '110841'},
       {start: '112588', end: '112886'},
       {start: 'Fomalhaut', end: '112886'},
-
     ];
+    allConstellations.push(piscisaustrinus);
+
     corvus.connections = [
       {start: 'Algorab', end: 'Kraz'},
       {start: 'Algorab', end: 'Gienah Ghurab'},
       {start: 'Kraz', end: '59134'},
       {start: 'Gienah Ghurab', end: '59134'},
       {start: '59020', end: '59134'},
-
     ];
+    allConstellations.push(corvus);
+
     pegasus.connections = [
       {start: 'Alpheratz', end: 'Algenib'},
       {start: 'Alpheratz', end: 'Scheat'},
@@ -693,6 +744,8 @@ function setup() {
       {start: '108830', end: '112084'},
       {start: '108830', end: '107011'},
     ];
+    allConstellations.push(pegasus);
+
     andromeda.connections = [
       {start: 'Alpheratz', end: '2906'},
       {start: 'Alpheratz', end: '3025'},
@@ -701,21 +754,25 @@ function setup() {
       {start: 'Mirach', end: 'Almaak'},
       {start: '4426', end: '7593'},
     ];
-    perseus.connections = [
-      {start: 'Alpheratz', end: 'Algenib'},
-      {start: 'Alpheratz', end: 'Scheat'},
-      {start: 'Algenib', end: 'Markab'},
-      {start: 'Scheat', end: 'Markab'},
-      {start: '111676', end: 'Markab'},
-      {start: '111676', end: '109081'},
-      {start: 'Enif', end: '109081'},
-      {start: '111698', end: 'Scheat'},
-      {start: '112389', end: 'Scheat'},
-      {start: '111698', end: '109064'},
-      {start: '112389', end: '112084'},
-      {start: '108830', end: '112084'},
-      {start: '108830', end: '107011'},
-    ];
+    allConstellations.push(andromeda);
+
+    // perseus.connections = [
+    //   {start: 'Alpheratz', end: 'Algenib'},
+    //   {start: 'Alpheratz', end: 'Scheat'},
+    //   {start: 'Algenib', end: 'Markab'},
+    //   {start: 'Scheat', end: 'Markab'},
+    //   {start: '111676', end: 'Markab'},
+    //   {start: '111676', end: '109081'},
+    //   {start: 'Enif', end: '109081'},
+    //   {start: '111698', end: 'Scheat'},
+    //   {start: '112389', end: 'Scheat'},
+    //   {start: '111698', end: '109064'},
+    //   {start: '112389', end: '112084'},
+    //   {start: '108830', end: '112084'},
+    //   {start: '108830', end: '107011'},
+    // ];
+    // allConstellations.push(perseus);
+
     eridanus.connections = [
       {start: 'Achernar', end: '8989'},
       {start: '8989', end: '10578'},
@@ -740,6 +797,8 @@ function setup() {
       {start: '21391', end: '22056'},
       {start: '22056', end: 'Cursa'},
     ];
+    allConstellations.push(eridanus);
+
     cepheus.connections = [
       {start: 'Alderamin', end: '109146'},
       {start: '112364', end: '109146'},
@@ -748,12 +807,16 @@ function setup() {
       {start: '116361', end: '112364'},
       {start: '112364', end: '105691'},
     ];
+    allConstellations.push(cepheus);
+
     aries.connections = [
       {start: '8813', end: 'Sheratan'},
       {start: 'Hamal', end: 'Sheratan'},
       {start: 'Hamal', end: '13176'},
       {start: '13176', end: '14802'},
     ];
+    allConstellations.push(aries);
+
     orion.connections = [
       {start: 'Betelgeuse', end: 'Alnitak'},
       {start: 'Betelgeuse', end: '26142'},
@@ -781,6 +844,8 @@ function setup() {
       {start: '22456', end: '22904'},
 
     ];
+    allConstellations.push(orion);
+
     vela.connections = [
       {start: '52575', end: '50050'},
       {start: '50050', end: '46518'},
@@ -791,6 +856,8 @@ function setup() {
       {start: '45809', end: '48635'},
       {start: '48635', end: '52575'},
     ];
+    allConstellations.push(vela);
+
     cetus.connections = [
       {start: '13920', end: '12795'},
       {start: '13920', end: 'Menkar'},
@@ -806,8 +873,12 @@ function setup() {
       {start: 'Diphda', end: '5353'},
       {start: '1559', end: 'Diphda'},
       {start: '9328', end: '8087'},
-
     ];
+    allConstellations.push(cetus);
+
+
+
+
 
 
     drawLines(ursaMajor);
@@ -881,11 +952,27 @@ function setup() {
       }
     }
 
+
     // console.log(stars);
   });
 
+  setTimeout(hi, 2000);
+
+
 } // end SETUP
 
+function hi() {
+  allConstellations.forEach(function(con) {
+    console.log(con);
+    var obj = {stuff: con};
+    $.ajax({
+      type: 'POST',
+      url: 'data',
+      data: obj
+    });
+  });
+
+}
 
 // Added this to help deal with click/drag box for zooming, but ....let's not use it for now:
 function draw() {
