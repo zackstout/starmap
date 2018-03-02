@@ -1,5 +1,5 @@
 
-var radialView = true;
+var radialView = false;
 
 // would be cool if on hover you got a semi-transparent image of the constellation
 
@@ -61,6 +61,8 @@ function preload() {
 function setup() {
   size = 30;
 
+
+
   createCanvas(w, h);
   background(200);
 
@@ -85,6 +87,20 @@ function setup() {
         id: star.id
       };
 
+      var output2 = {
+        dec: parseFloat(star.dec),
+        ra: parseFloat(star.ra),
+        visMag: parseFloat(star.mag),
+        star_name: star.proper,
+        absMag: parseFloat(star.absmag),
+        distance: parseFloat(star.distance),
+        spec: star.spect,
+        ci: parseFloat(star.ci),
+        lum: parseFloat(star.lum),
+        constellation: star.con,
+        star_id: parseInt(star.id),
+      };
+
       // why can't i change it?!?!!?
       // because of parseFloat dog....
       // console.log(output.ra);
@@ -106,6 +122,18 @@ function setup() {
         output.xCoord = w - xCoord;
         output.yCoord = yCoord;
         output.radius = size / adjMag;
+
+        $.ajax({
+          type: 'POST',
+          url: '/stars',
+          data: output2
+        }).done(function(res) {
+          // console.log(res);
+        }).catch(function(err) {
+          console.log(err);
+        });
+
+
         //
         // console.log(xCoord);
         // console.log(output.ra);
