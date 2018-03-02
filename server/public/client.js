@@ -67,7 +67,23 @@ function setup() {
   background(200);
 
   // image(img, 100, 100, 100, 100);
+  d3.csv('uniqueconstellations.csv', function(da) {
+    console.log(da);
+    var cons = [];
+    da.forEach(function(d) {
+      cons.push(d.constellation);
+    });
+    cons.forEach(function(con) {
+      var obj = {name: con};
+      $.ajax({
+        type: "POST",
+        url: "/con",
+        data: obj
+      });
+    });
+    // var obj = {da: da}
 
+  });
 
   d3.csv('hygdata_v3.csv', function(data) {
     console.log(data);
