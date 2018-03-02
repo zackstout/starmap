@@ -15,7 +15,7 @@ var nums = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 // var radialScale = 2.85;
 
 // var radialScale = 6.2;
-var radialScale = 2.87 * 2;
+var radialScale = 2.87 * 1.4;
 
 var allConstellations = [];
 
@@ -56,9 +56,9 @@ var orion = [];
 var vela = [];
 var cetus = [];
 
-function preload() {
-  img = loadImage('dogs.jpg');
-}
+// function preload() {
+//   img = loadImage('dogs.jpg');
+// }
 
 function setup() {
   size = 30;
@@ -157,7 +157,7 @@ function setup() {
         // yeah......don't forget the parsefloat:
 
         // Oh nice, we can pair this with Radial View to get a shifted radial:
-        var newX = (parseFloat(output.ra) + (12 - 2.5297)) % 24;
+        var newX = (parseFloat(output.ra) + (16 - 2.5297)) % 24;
 
         // var newX = output.ra;
         var realnewx = newX * w/24;
@@ -165,7 +165,6 @@ function setup() {
 
         // ok the lines need to access this, but the ellipses don't:
         output.newx = w - realnewx;
-
 
         var theta = newX * 2 * Math.PI / 24;
         var rad =  (90 - parseFloat(output.dec));
@@ -196,24 +195,28 @@ function setup() {
           fill(255);
         }
 
-        // if (output.con == 'Ari') {
-        //   fill('orange');
-        // }
+        if (output.con == 'Cnc') {
+          fill('orange');
+        }
         if (output.con == 'Per') {
           fill('green');
         }
-        // if (output.con == 'Cet') {
-        //   fill('purple');
-        // }
-        // if (output.con == 'Cep') {
-        //   fill('red');
-        // }
-        // if (output.con == 'Ori') {
-        //   fill('yellow');
-        // }
-        // if (output.con == 'Vel') {
-        //   fill('blue');
-        // }
+        // Aqr, Psc, Gru, Hya, Cnc
+        if (output.con == 'Aqr') {
+          fill('purple');
+        }
+        if (output.con == 'Psc') {
+          fill('red');
+        }
+        if (output.con == 'Gru') {
+          fill('yellow');
+        }
+        if (output.con == 'Hya') {
+          fill('blue');
+        }
+        if (output.con == 'UMi') {
+          fill('magenta');
+        }
 
 
 
