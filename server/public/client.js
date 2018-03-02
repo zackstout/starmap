@@ -1,5 +1,5 @@
 
-var radialView = false;
+var radialView = true;
 
 // would be cool if on hover you got a semi-transparent image of the constellation
 
@@ -11,7 +11,11 @@ var size;
 var stars = [];
 var nums = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 
-var radialScale = 2.7;
+// right around here seems to get the scale correct, i.e. match between the coordinate grids:
+// var radialScale = 2.85;
+
+// var radialScale = 6.2;
+var radialScale = 2.87 * 2;
 
 var ursaMajor = [];
 var coronaBor = [];
@@ -47,6 +51,8 @@ var eridanus = [];
 var aries = [];
 var cepheus = [];
 var orion = [];
+var vela = [];
+var cetus = [];
 
 function preload() {
   img = loadImage('dogs.jpg');
@@ -88,6 +94,8 @@ function setup() {
       // only 1600 less than 5:
       // only 500 less than 4:
       // and only 5 less than 0!
+
+      //let's put these in a database and kind of redo things...?
       if (parseFloat(output.mag) < 5.2 && output.name != 'Sol') {
 
         // console.log(output.ra, output.dec);
@@ -105,9 +113,9 @@ function setup() {
         // yeah......don't forget the parsefloat:
 
         // Oh nice, we can pair this with Radial View to get a shifted radial:
-        // var newX = (parseFloat(output.ra) + (12 - 2.5297)) % 24;
+        var newX = (parseFloat(output.ra) + (12 - 2.5297)) % 24;
 
-        var newX = output.ra;
+        // var newX = output.ra;
         var realnewx = newX * w/24;
         // console.log(newX, output.ra);
 
@@ -150,18 +158,18 @@ function setup() {
         if (output.con == 'Per') {
           fill('green');
         }
-        if (output.con == 'Cet') {
-          fill('purple');
-        }
+        // if (output.con == 'Cet') {
+        //   fill('purple');
+        // }
         // if (output.con == 'Cep') {
         //   fill('red');
         // }
         // if (output.con == 'Ori') {
         //   fill('yellow');
         // }
-        if (output.con == 'Vel') {
-          fill('blue');
-        }
+        // if (output.con == 'Vel') {
+        //   fill('blue');
+        // }
 
 
 
@@ -291,6 +299,12 @@ function setup() {
         }
         if (output.con == 'Ori') {
           orion.push(output);
+        }
+        if (output.con == 'Vel') {
+          vela.push(output);
+        }
+        if (output.con == 'Cet' || output.id == '13920') {
+          cetus.push(output);
         }
       }
     }); // end FOREACH
@@ -723,6 +737,33 @@ function setup() {
       {start: '22456', end: '22904'},
 
     ];
+    vela.connections = [
+      {start: '52575', end: '50050'},
+      {start: '50050', end: '46518'},
+      {start: '46518', end: '44689'},
+      {start: '44689', end: '39840'},
+      {start: '39840', end: '42794'},
+      {start: '42794', end: '45809'},
+      {start: '45809', end: '48635'},
+      {start: '48635', end: '52575'},
+    ];
+    cetus.connections = [
+      {start: '13920', end: '12795'},
+      {start: '13920', end: 'Menkar'},
+      {start: '11457', end: '12795'},
+      {start: '11457', end: '12673'},
+      {start: 'Menkar', end: '12673'},
+      {start: '12355', end: '12673'},
+      {start: '12355', end: '8481'},
+      {start: '8087', end: '8481'},
+      {start: '6523', end: '8481'},
+      {start: '6523', end: '5353'},
+      {start: '1559', end: '5353'},
+      {start: 'Diphda', end: '5353'},
+      {start: '1559', end: 'Diphda'},
+      {start: '9328', end: '8087'},
+
+    ];
 
 
     drawLines(ursaMajor);
@@ -758,6 +799,8 @@ function setup() {
     drawLines(cepheus);
     drawLines(orion);
     drawLines(aries);
+    drawLines(cetus);
+    drawLines(vela);
 
 
     var increment = 250;
