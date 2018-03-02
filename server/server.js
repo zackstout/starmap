@@ -32,6 +32,38 @@ app.get('/stars', function(req, res) {
 });
 
 app.post('/data', function(req, res) {
+  console.log(req.body.stuff);
+  var arr = req.body.stuff;
+  arr.forEach(function(conn) {
+    var id = conn.id;
+    var name = conn.name;
+    var constellation = conn.con;
+    // doing it the ugly way to see if it works and save time:
+    pool.connect(function (errorConnectingToDb, db, done) {
+      if (errorConnectingToDb) {
+        // There was an error and no connection was made
+        console.log('Error connecting', errorConnectingToDb);
+        res.sendStatus(500);
+      } else {
+        // We connected to the db!!!!! pool -1
+        // console.log(star, "HI THERE");
+        var queryText = 'INSERT INTO "' + constellation + '" ("") VALUES($1, $2);';
+        db.query(queryText, [id, name], function (errorMakingQuery, result) {
+          // We have received an error or result at this point
+          done(); // pool +1
+          if (errorMakingQuery) {
+            // console.log('Error making query', errorMakingQuery);
+            res.sendStatus(500);
+
+          } else {
+            // Send back success!
+            res.sendStatus(201);
+
+          }
+        }); // END QUERY
+      }
+    }); // END POOL
+  });
 
 });
 

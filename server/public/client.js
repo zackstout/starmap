@@ -956,7 +956,7 @@ function setup() {
     // console.log(stars);
   });
 
-  setTimeout(hi, 2000);
+  // setTimeout(hi, 2000);
 
 
 } // end SETUP
