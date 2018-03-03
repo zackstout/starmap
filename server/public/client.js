@@ -109,7 +109,8 @@ function setup() {
         visMag: parseFloat(star.mag),
         star_name: star.proper,
         absMag: parseFloat(star.absmag),
-        distance: parseFloat(star.distance),
+        // must be dist, not distance:
+        distance: parseFloat(star.dist),
         spec: star.spect,
         ci: parseFloat(star.ci),
         lum: parseFloat(star.lum),
@@ -127,6 +128,7 @@ function setup() {
       // only 500 less than 4:
       // and only 5 less than 0!
 
+      // 2045 unique stars:
       //let's put these in a database and kind of redo things...?
       if (parseFloat(output.mag) < 5.2 && output.name != 'Sol') {
 
@@ -139,6 +141,7 @@ function setup() {
         output.yCoord = yCoord;
         output.radius = size / adjMag;
 
+        // SAVE STARS TO "STARS" TABLE:
         // $.ajax({
         //   type: 'POST',
         //   url: '/stars',
@@ -157,9 +160,9 @@ function setup() {
         // yeah......don't forget the parsefloat:
 
         // Oh nice, we can pair this with Radial View to get a shifted radial:
-        var newX = (parseFloat(output.ra) + (16 - 2.5297)) % 24;
+        // var newX = (parseFloat(output.ra) + (16 - 2.5297)) % 24;
 
-        // var newX = output.ra;
+        var newX = output.ra;
         var realnewx = newX * w/24;
         // console.log(newX, output.ra);
 
@@ -379,6 +382,7 @@ function setup() {
       {start: '46720', end: '44343'},
       {start: '44343', end: '44000'},
     ];
+    ursaMajor.title = 'UMa';
     allConstellations.push(ursaMajor);
     coronaBor.connections = [
       {start: '77923', end: '76716'},
@@ -386,8 +390,9 @@ function setup() {
       {start: 'Alphekka', end: '75466'},
       {start: '75466', end: '75895'},
     ];
-    allConstellations.push(coronaBor);
+    coronaBor.title = 'CrB'
 
+    allConstellations.push(coronaBor);
     cygnus.connections = [
       {start: 'Deneb', end: 'Sadr'},
       {start: 'Sadr', end: '96858'},
@@ -397,6 +402,7 @@ function setup() {
       {start: '97799', end: 'Albireo'},
       {start: 'Gienah', end: '104394'},
     ];
+    cygnus.title = 'Cyg'
     allConstellations.push(cygnus);
 
     bootes.connections = [
@@ -413,6 +419,7 @@ function setup() {
       {start: '69510', end: '67711'},
       {start: '67711', end: '67246'},
     ];
+    bootes.title = 'Boo'
     allConstellations.push(bootes);
 
     aquila.connections = [
@@ -880,8 +887,28 @@ function setup() {
     allConstellations.push(cetus);
 
 
+    // console.log(allConstellations);
 
+    allConstellations.forEach(function(constellation) {
+      constellation.connections.forEach(function(conn) {
+        // if (nums.includes(conn.start[1])) {
+        //   conn.start = parseInt(conn.start);
+        // }
+        // if (nums.includes(conn.end[1])) {
+        //   conn.end = parseInt(conn.end);
+        // }
+        console.log(conn);
 
+        $.ajax({
+          type: "POST",
+          url: "/connections",
+          data: conn
+        });
+
+        // conn.start = String(conn.start);
+        // conn.end = String(conn.end);
+      });
+    });
 
 
     drawLines(ursaMajor);

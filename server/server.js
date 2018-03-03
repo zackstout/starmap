@@ -3,6 +3,7 @@ var express = require('express');
 var app = express();
 var port = process.env.PORT || 5050;
 var bodyParser = require('body-parser');
+var nums = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 
 var allStars = [];
 
@@ -20,10 +21,66 @@ var pool = new pg.Pool(config);
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static('server/public'));
 
+
+app.get('/connections', function(req, res) {
+
+});
+
+app.get('/stardata', function(req, res) {
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+app.post('/connections', function(req, res) {
+  // console.log(req.body);
+  // res.sendStatus(201);
+  // if (nums.includes(req.body.start[1])) {
+  //   req.body.start = parseInt(req.body.start);
+  // }
+  pool.connect(function (errorConnectingToDb, db, done) {
+    if (errorConnectingToDb) {
+      // There was an error and no connection was made
+      console.log('Error connecting', errorConnectingToDb);
+      res.sendStatus(500);
+    } else {
+      // We connected to the db!!!!! pool -1
+      var queryText = 'INSERT INTO "connections" ("starting", "ending") VALUES ($1, $2);';
+      db.query(queryText, [req.body.start, req.body.end], function (errorMakingQuery, result) {
+        // We have received an error or result at this point
+        done(); // pool +1
+        if (errorMakingQuery) {
+          // console.log('Error making query', errorMakingQuery);
+          res.sendStatus(500);
+
+        } else {
+          // Send back success!
+          res.sendStatus(201);
+
+        }
+      }); // END QUERY
+    }
+  }); // END POOL
+});
+
 app.post('/stars', function(req, res) {
   // console.log(req.body);
   // res.send(starsArray);
-  // saveStar(req.body);
+  saveStar(req.body);
   res.sendStatus(201);
 });
 
