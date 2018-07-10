@@ -233,12 +233,26 @@ function setup() {
 
 
 
+        // ---------------------------------------- DRAWING THE STARS THEMSELVES: ----------------------------------------
+
         // i'm very confused why we can't use output.newx here.....
         if (parseFloat(output.mag) < 4.6) {
 
           if (radialView) {
             translate(w/2, h/2);
-            ellipse(Math.cos(theta) * rad * radialScale, Math.sin(theta) * rad * radialScale, size / adjMag);
+
+            var scaledRadius = rad * radialScale;
+            var max = 500;
+            var numQuarterScales = scaledRadius / (max/4);
+            var origRadius = max / 2;
+            var rootRadius = origRadius * Math.pow(numQuarterScales, 0.5);
+
+
+            ellipse(Math.cos(theta) * rootRadius, Math.sin(theta) * rootRadius, size / adjMag);
+
+            // hOW IT WAS BEFORE:
+            // ellipse(Math.cos(theta) * scaledRadius, Math.sin(theta) * scaledRadius, size / adjMag);
+
             translate(-w/2, -h/2);
           } else {
             ellipse(w - realnewx, yCoord, size / adjMag);
@@ -955,7 +969,8 @@ function setup() {
     var increment = 250;
     var numHours = 12;
 
-    // Draw coordinate grids:
+    // ---------------------------------------- DRAWING THE COORDINATE GRIDS: ----------------------------------------
+
     if (radialView) {
       translate(w/2, h/2);
       noFill();
@@ -1096,14 +1111,34 @@ function drawLines(constellation) {
     // }
 
 
+    // ---------------------------------------- CONNECTING THE DOTS: ----------------------------------------
 
     if (radialView) {
       // Converting to polar coordinates:
+
+      var start_scaledRadius = start1.rad * radialScale;
+      var end_scaledRadius = end1.rad * radialScale;
+
+      var max = 500;
+      var start_numQuarterScales = start_scaledRadius / (max/4);
+      var end_numQuarterScales = end_scaledRadius / (max/4);
+
+      var origRadius = max / 2;
+      var start_rootRadius = origRadius * Math.pow(start_numQuarterScales, 0.5);
+      var end_rootRadius = origRadius * Math.pow(end_numQuarterScales, 0.5);
+
+
       translate(w/2, h/2);
-      var start_1 = Math.cos(start1.theta) * start1.rad * radialScale;
-      var end_1 = Math.sin(start1.theta) * start1.rad * radialScale;
-      var start_2 = Math.cos(end1.theta) * end1.rad * radialScale;
-      var end_2 = Math.sin(end1.theta) * end1.rad * radialScale;
+      var start_1 = Math.cos(start1.theta) * start_rootRadius;
+      var end_1 = Math.sin(start1.theta) * start_rootRadius;
+      var start_2 = Math.cos(end1.theta) * end_rootRadius;
+      var end_2 = Math.sin(end1.theta) * end_rootRadius;
+
+      // HOW IT WAS:
+      // var start_1 = Math.cos(start1.theta) * start_scaledRadius;
+      // var end_1 = Math.sin(start1.theta) * start_scaledRadius;
+      // var start_2 = Math.cos(end1.theta) * end_scaledRadius;
+      // var end_2 = Math.sin(end1.theta) * end_scaledRadius;
       line(start_1, end_1, start_2, end_2);
       translate(-w/2, -h/2);
     } else {
