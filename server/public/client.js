@@ -1,5 +1,5 @@
 
-var radialView = false;
+var radialView = true;
 
 // would be cool if on hover you got a semi-transparent image of the constellation
 
@@ -15,7 +15,11 @@ var nums = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 // var radialScale = 2.85;
 
 // var radialScale = 6.2;
-var radialScale = 2.87 * 1.4;
+
+
+
+// Ooooh no wonder it's not working, we're just pulling this number out of our ass:
+var radialScale = 2.87 *1 ;
 
 var allConstellations = [];
 
@@ -897,13 +901,13 @@ function setup() {
         // if (nums.includes(conn.end[1])) {
         //   conn.end = parseInt(conn.end);
         // }
-        console.log(conn);
-
-        $.ajax({
-          type: "POST",
-          url: "/connections",
-          data: conn
-        });
+        // console.log(conn);
+        //
+        // $.ajax({
+        //   type: "POST",
+        //   url: "/connections",
+        //   data: conn
+        // });
 
         // conn.start = String(conn.start);
         // conn.end = String(conn.end);
@@ -956,10 +960,13 @@ function setup() {
       translate(w/2, h/2);
       noFill();
       stroke('purple');
-      ellipse(0, 0, increment, increment);
-      ellipse(0, 0, 2 * increment, 2 * increment);
-      ellipse(0, 0, 3 * increment, 3 * increment);
-      ellipse(0, 0, 4 * increment, 4 * increment);
+
+      var initial = increment * 2; // start at 500
+
+      ellipse(0, 0, initial, initial);
+      ellipse(0, 0, initial * Math.pow(2, 0.5), initial * Math.pow(2, 0.5));
+      ellipse(0, 0, initial * Math.pow(3, 0.5), initial * Math.pow(3, 0.5));
+      ellipse(0, 0, initial * Math.pow(4, 0.5), initial * Math.pow(4, 0.5));
 
       for (var i=0; i < numHours; i++) {
         var x = Math.cos(i * Math.PI / (numHours / 2));

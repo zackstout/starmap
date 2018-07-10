@@ -58,6 +58,19 @@ app.post('/connections', function(req, res) {
       console.log('Error connecting', errorConnectingToDb);
       res.sendStatus(500);
     } else {
+      // var queryText, type1, type2;
+      // if (nums.includes(req.body.start[1])) {
+      //   type1 = 'number';
+      // } else {
+      //   type1 = 'string';
+      // }
+      // if (nums.includes(req.body.end[1])) {
+      //   type2 = 'number';
+      // } else {
+      //   type2 = 'string';
+      // }
+      // queryText = 'SELECT * FROM "stars" WHERE ""'
+
       // We connected to the db!!!!! pool -1
       var queryText = 'INSERT INTO "connections" ("starting", "ending") VALUES ($1, $2);';
       db.query(queryText, [req.body.start, req.body.end], function (errorMakingQuery, result) {
