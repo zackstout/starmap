@@ -126,8 +126,8 @@ function setup() {
       // because of parseFloat dog....
       // console.log(output.ra);
 
-// 85557
-//107265
+      // 85557
+      //107265
       // only 1600 less than 5:
       // only 500 less than 4:
       // and only 5 less than 0!
@@ -233,17 +233,17 @@ function setup() {
 
 
 
-          // i'm very confused why we can't use output.newx here.....
-          if (parseFloat(output.mag) < 4.6) {
+        // i'm very confused why we can't use output.newx here.....
+        if (parseFloat(output.mag) < 4.6) {
 
-            if (radialView) {
-              translate(w/2, h/2);
-              ellipse(Math.cos(theta) * rad * radialScale, Math.sin(theta) * rad * radialScale, size / adjMag);
-              translate(-w/2, -h/2);
-            } else {
-              ellipse(w - realnewx, yCoord, size / adjMag);
-            }
+          if (radialView) {
+            translate(w/2, h/2);
+            ellipse(Math.cos(theta) * rad * radialScale, Math.sin(theta) * rad * radialScale, size / adjMag);
+            translate(-w/2, -h/2);
+          } else {
+            ellipse(w - realnewx, yCoord, size / adjMag);
           }
+        }
 
 
 
@@ -1032,12 +1032,17 @@ var lowerright;
 
 function mouseClicked() {
   // console.log(mouseX, mouseY);
+  // console.log(stars);
   stars.forEach(function(star) {
     if (radialView) {
+
       // Hmm, not sure why this isn't working:
-      if (dist(mouseX, mouseY, Math.cos(star.theta) * star.rad * radialScale, Math.sin(star.theta) * star.rad * radialScale) < star.radius) {
+      // Finally got there, had to account for translation:
+      if (dist(mouseX, mouseY, w/2 + Math.cos(star.theta) * star.rad * radialScale, h/2 + Math.sin(star.theta) * star.rad * radialScale) < star.radius) {
         console.log(star);
       }
+
+
     } else {
       if (dist(mouseX, mouseY, star.xCoord, star.yCoord) < star.radius/1.5) {
         console.log(star);
@@ -1045,6 +1050,7 @@ function mouseClicked() {
     }
 
   });
+
 }
 
 function mousePressed() {
@@ -1094,7 +1100,11 @@ function drawLines(constellation) {
     if (radialView) {
       // Converting to polar coordinates:
       translate(w/2, h/2);
-      line(Math.cos(start1.theta) * start1.rad * radialScale, Math.sin(start1.theta) * start1.rad * radialScale, Math.cos(end1.theta) * end1.rad * radialScale, Math.sin(end1.theta) * end1.rad * radialScale);
+      var start_1 = Math.cos(start1.theta) * start1.rad * radialScale;
+      var end_1 = Math.sin(start1.theta) * start1.rad * radialScale;
+      var start_2 = Math.cos(end1.theta) * end1.rad * radialScale;
+      var end_2 = Math.sin(end1.theta) * end1.rad * radialScale;
+      line(start_1, end_1, start_2, end_2);
       translate(-w/2, -h/2);
     } else {
 
